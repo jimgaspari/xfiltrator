@@ -1,12 +1,12 @@
 # Import statements
 # What you want to import from Python libraries
 import os
-from  flask import Blueprint, Flask, flash, request, redirect, render_template, send_from_directory
+from  flask import Blueprint, Flask, current_app, flash, request, redirect, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 
 # Variable Definitions 
-UPLOAD_FOLDER = './uploads'
-DOWNLOAD_FOLDER = './downloads'
+UPLOAD_FOLDER = 'uploads'
+DOWNLOAD_FOLDER = 'downloads'
 ALLOWED_EXTENTION = {'txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'pdf', 'conf'}
 bp = Blueprint('xfiltrate', __name__, url_prefix='/')
 
@@ -25,7 +25,7 @@ def mainpage():
 
 @bp.route('/downloads/', methods=['GET'])
 def downloads():
-    files = os.listdir(DOWNLOAD_FOLDER)
+    files = os.listdir(os.path.join(current_app.root_path, DOWNLOAD_FOLDER))
     return render_template('downloads.html', files=files)
 
 @bp.route('/downloads/<path:filename>', methods=['GET'])

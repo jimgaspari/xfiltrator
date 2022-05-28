@@ -1,7 +1,7 @@
 path = '/fileupload/'
 
 def test_upload_file(client):
-    filename = "tests/files/id.txt"
+    filename = "tests/files/os_info.txt"
     data = {
         'file': (open(filename, 'rb'), filename)
     }
