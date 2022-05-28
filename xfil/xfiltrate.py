@@ -1,10 +1,14 @@
+# Import statements
+# What you want to import from Python libraries
 import os
-from  flask import Flask, flash, request, redirect, url_for, render_template, send_from_directory
+from  flask import Blueprint, Flask, flash, request, redirect, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 
+# Variable Definitions 
 UPLOAD_FOLDER = './uploads'
 DOWNLOAD_FOLDER = './downloads'
 ALLOWED_EXTENTION = {'txt', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'pdf', 'conf'}
+bp = Blueprint('xfiltrate', __name__, url_prefix='/')
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -15,24 +19,20 @@ app.secret_key = print(os.urandom(24))
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENTION
 
-@app.route('/', methods=['GET'])
+@bp.route('/', methods=['GET'])
 def mainpage():
     return render_template('main_page.html')
 
-# @app.route('/downloads/<filename>', methods=['GET'])
-# def downloads(filename):
-#     return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename=filename, as_attachment=True)
-
-@app.route('/downloads/', methods=['GET'])
+@bp.route('/downloads/', methods=['GET'])
 def downloads():
     files = os.listdir(DOWNLOAD_FOLDER)
     return render_template('downloads.html', files=files)
 
-@app.route('/downloads/<path:filename>', methods=['GET'])
+@bp.route('/downloads/<path:filename>', methods=['GET'])
 def get_file(filename):
     return send_from_directory(app.config['DOWNLOAD_FOLDER'], filename, as_attachment=True)
 
-@app.route('/fileupload/', methods=['GET', 'POST'])
+@bp.route('/fileupload/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
@@ -53,7 +53,7 @@ def upload_file():
     return render_template('fileupload.html')
 
 # TODO ADD SOME Safety to the filename
-@app.route('/text/', methods=['GET', 'POST'])
+@bp.route('/text/', methods=['GET', 'POST'])
 def upload_text():
     filename = request.form['filename']
     text = request.form['text']
@@ -63,8 +63,8 @@ def upload_text():
     if filename and text:
         with open(os.path.join(app.config['UPLOAD_FOLDER'],filename), 'w') as txt_file:
             txt_file.writelines(text)
-    return render_template('test_upload.html')
+    return render_template('text_upload.html')
 
 
 if __name__ == '__main__':
-    app.run() 
+    app.run()

@@ -3,9 +3,16 @@ name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
 
+[dev-packages]
+pylint = "*"
+pytest = "*"
+coverage = "*"
+wheel = "*"
+build = "*"
+
 [requires]
-python_version = "3.7"
+python_version = "3.10"
 
 [packages]
 flask = "*"
-pylint = "*"
+xfiltrator = {editable = true, path = "."}

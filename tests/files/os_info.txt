@@ -1,0 +1,9 @@
+Fedora release 31 (Thirty One)
+NAME=Fedora
+VERSION="31 (Workstation Edition)"
+ID=fedora
+VERSION_ID=31
+VERSION_CODENAME=""
+PLATFORM_ID="platform:f31"
+PRETTY_NAME="Fedora 31 (Workstation Edition)"
+ANSI_COLOR="0

@@ -1,0 +1,4 @@
+include xfil/downloads/*
+graft xfil/static
+graft xfil/templates
+global-exclude *.pyc
