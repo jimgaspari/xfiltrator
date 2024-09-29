@@ -1,14 +1,18 @@
 <!doctype html>
 <html>
-    <title>Upload Text to a files</title>
-    <h1>Text</h1>
-    <form method=post enctype=multipart/form-data>
-        <h2>File Name</h2>
-        <input type="text" name=filename>
-        <br>
-        <h2>File Data</h2>
-        <input type=text name=text>
-        <br>
-        <input type=submit value=Upload>
-      </form>
+  <head>
+    <title>Xfiltrator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  </head>
+  <title>Upload Text to a files</title>
+  <h1>Text</h1>
+  <form method=post enctype=multipart/form-data>
+      <h2>File Name</h2>
+      <input type="text" name=filename>
+      <br>
+      <h2>File Data</h2>
+      <input type=text name=text>
+      <br>
+      <input type=submit value=Upload>
+    </form>
 </html>
